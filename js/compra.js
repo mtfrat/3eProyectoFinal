@@ -1,11 +1,14 @@
 // Declaro variables
 
 let verificadorCompra = 0
+let verificadorError = 0
 let elegirColor
 let elegirUnidades
 let elegirCuotas
 let precio
 let producto
+let contenidoProductos
+let divDatos
 
 $(() => {
     // Evento que recibe cuando se da click en el boton Comprar
@@ -17,6 +20,9 @@ $(() => {
         let precio = document.getElementById("precio").textContent
         let producto = document.getElementById("producto").textContent
         if(elegirColor !== "" && elegirCuotas !== "" && elegirUnidades !== ""){
+
+            $(".divDatos").remove()
+
             // Uso el verificador para mostrar los datos solo 1 vez
             if(verificadorCompra == 0){
                 document.getElementById("ventanaEmergente").style.display = "block"
@@ -39,7 +45,16 @@ $(() => {
                 })
             }
         }else{
-            alert("Falta ingresar productos")
+            if(verificadorError == 0){
+                contenidoProductos = document.getElementById("contenidoProductos")
+                divDatos = document.createElement("div")
+                divDatos.className = 'divDatos'
+                divDatos.innerHTML +=     `
+                <p>Por favor, completá todos los datos!</p>
+                `
+                contenidoProductos.appendChild(divDatos)
+                verificadorError = 1
+            }
         }
     })
     // Evento que espera click en la x
